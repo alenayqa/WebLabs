@@ -1,0 +1,25 @@
+1)
+CREATE TABLE users
+(
+    id integer PRIMARY KEY,
+    fio text,
+    passwd text,
+    nickname text,
+    birthday date,
+    img text,
+    living_address text,
+    owner_type text,
+    flat_area integer,
+    tsg_name text,
+    home_address text
+);
+
+===================================================================
+
+2, 3)
+SELECT fio as "ФИО", living_address as "Место проживания", age(birthday) as "Возраст",
+ age(cast(birthday + ((extract(year from age(birthday)) + 1) * interval '1' year) as date), now())
+ as "До следующего дня рождения"
+ FROM users WHERE owner_type='Председатель' or owner_type='Член правления'
+
+===================================================================
