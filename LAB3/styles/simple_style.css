@@ -44,3 +44,7 @@ input {
     display: inline-block;
     height: 30px;
 }
+
+.exit-button {
+    display: none;
+}

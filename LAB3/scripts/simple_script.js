@@ -1,5 +1,8 @@
 var lang = "ru";
 var my_div = newDiv = null;
+var username = "";
+
+window.onload = exitUser
 
 var page_dict = 
 {
@@ -12,6 +15,8 @@ var page_dict =
     "FirstField" : "First field",
     "SecondField" : "Second field",
     "NewFieldPlaceholder" : "New field placeholder",
+    "SignIn" : "Sign-in",
+    "Exit" : "Exit",
     "SwitchLan" : "Перевести на русский"
   },
   "ru": 
@@ -23,6 +28,8 @@ var page_dict =
     "FirstField" : "Первое поле",
     "SecondField" : "Второе поле",
     "NewFieldPlaceholder" : "Плейсхолдер для нового поля",
+    "SignIn" : "Войти",
+    "Exit" : "Выйти",
     "SwitchLan" : "Switch to English"
   },
     
@@ -38,25 +45,63 @@ function addPlaceholder() {
     my_div.appendChild(newDiv);
   }
 
+function setPageText() {
+  document.getElementById("switch-lan-button").innerHTML = page_dict[lang].SwitchLan;
+  document.getElementById("form-field").innerHTML = page_dict[lang].Form;
+  if (username=="")
+    document.getElementById("welcome-field").innerHTML =
+      page_dict[lang].Hello + ", " + page_dict[lang].User + "!";
+  else
+    document.getElementById("welcome-field").innerHTML =
+      page_dict[lang].Hello + ", " + username + "!";
+
+  document.getElementById("first-field").placeholder = page_dict[lang].FirstField;
+  document.getElementById("second-field").placeholder = page_dict[lang].SecondField;
+  document.getElementById("new-placeholder").placeholder = page_dict[lang].NewFieldPlaceholder;
+
+  document.getElementById("add-button").innerHTML = page_dict[lang].AddField;
+  document.getElementById("sign-in-button").innerHTML = page_dict[lang].SignIn;
+  document.getElementById("exit-button").innerHTML = page_dict[lang].Exit;
+
+  document.getElementById("exit-button").style.display = 'none';
+  document.getElementById("exit-button").style.display = '';
+  
+  if (username=="")
+  {
+    document.getElementById("sign-in-button").style.display = '';
+    document.getElementById("exit-button").style.display = 'none';
+  }
+  else
+  {
+    document.getElementById("sign-in-button").style.display = 'none';
+    document.getElementById("exit-button").style.display = '';
+  }
+
+}
+
 function switchLanguage() {
   if (lang == "en")
     lang = "ru";
   else
     lang = "en";
 
-  document.getElementById("switch-lan-button").innerHTML = page_dict[lang].SwitchLan;
-  document.getElementById("form-field").innerHTML = page_dict[lang].Form;
-  document.getElementById("welcome-field").innerHTML =
-    page_dict[lang].Hello + ", " + page_dict[lang].User + "!";
-  document.getElementById("first-field").placeholder = page_dict[lang].FirstField;
-  document.getElementById("second-field").placeholder = page_dict[lang].SecondField;
-  document.getElementById("new-placeholder").placeholder = page_dict[lang].NewFieldPlaceholder;
+  setPageText();
+}
 
-  document.getElementById("add-button").innerHTML = page_dict[lang].AddField;
-  // document.getElementById("").innerHTML = page_dict[lang].;
-  // document.getElementById("").innerHTML = page_dict[lang].;
-  // document.getElementById("").innerHTML = page_dict[lang].;
-
-
-
+function signIn() {
+  username = prompt('Username:');
+  if (!username.trim())
+  {
+    alert("Enter username!");
+    username="";
   }
+  else
+  {
+    setPageText();
+  }
+}
+
+function exitUser() {
+  username="";
+  setPageText();
+}
