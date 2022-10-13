@@ -4,5 +4,6 @@
 #### ПМИ-1-2019
 
 - EntranceLab - Входной контроль
-- Lab1 - HTML
-- Lab2 - CSS
+- LAB1 - HTML
+- LAB2 - CSS
+- LAB3 - JavaScript
