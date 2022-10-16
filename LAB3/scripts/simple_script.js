@@ -17,6 +17,7 @@ var page_dict =
     "NewFieldPlaceholder" : "New field placeholder",
     "SignIn" : "Sign-in",
     "Exit" : "Exit",
+    "EnterUsername" : "Enter username!",
     "SwitchLan" : "Перевести на русский"
   },
   "ru": 
@@ -30,6 +31,7 @@ var page_dict =
     "NewFieldPlaceholder" : "Плейсхолдер для нового поля",
     "SignIn" : "Войти",
     "Exit" : "Выйти",
+    "EnterUsername" : "Введите имя пользователя!",
     "SwitchLan" : "Switch to English"
   },
     
@@ -92,7 +94,7 @@ function signIn() {
   username = prompt('Username:');
   if (!username.trim())
   {
-    alert("Enter username!");
+    alert(page_dict[lang].EnterUsername);
     username="";
   }
   else
