@@ -21,7 +21,7 @@ def main():
         f.write("Enter two numbers: $ ")
         numbers = input("Enter two numbers: $ ").split()
         f.write('\n'+str(datetime.datetime.now())+'\n')
-        f.write(''.join(str(x) for x in numbers))
+        f.write(''.join(str(x)+' ' for x in numbers))
 
         if len(numbers)==1 and numbers[0]=='q':
             print("Bye!")
