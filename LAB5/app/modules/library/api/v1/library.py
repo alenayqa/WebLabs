@@ -148,3 +148,83 @@ def edit_author(author_id: int, name: Optional[str] = Form(None), birthdate: Opt
         changed_author.birthdate = birthdate
     session.commit()
     return {"status": "success"}
+
+@router.get('/authors/search')
+def search_author(name: str, session: Session = Depends(get_db)):
+    authors = session.query(Author).filter(Author.name == name)
+    try:
+        return [
+            {
+                "name" : a.name,
+                "birthdate" : a.birthdate,
+                "biography" : a.biography
+            } for a in authors
+        ]
+    except:
+        return {"status": "no data to return"}\
+
+@router.get('/books/search/name')
+def search_book_by_name(name: str, session: Session = Depends(get_db)):
+    books = session.query(Book).filter(Book.name == name)
+    try:
+        return [
+            {
+                "name" : a.name,
+                "writedate" : a.writedate,
+                "is_finished" : a.is_finished
+            } for a in books
+        ]
+    except:
+        return {"status": "no data to return"}
+
+@router.get('books/search/finished')
+def search_finished_books(session: Session = Depends(get_db)):
+    books = session.query(Book).filter(Book.is_finished)
+    try:
+        return [
+            {
+                "name" : a.name,
+                "writedate" : a.writedate,
+                "is_finished" : a.is_finished
+            } for a in books
+        ]
+    except:
+        return {"status": "no data to return"}
+
+@router.post('books/search/plan')
+def search_plan_books(lang: Optional[str] = Form(None), session: Session = Depends(get_db)):
+    q = session.query(Book, Language).join(Language).filter(Book.is_finished == False)
+    if lang is not None:
+        q = q.filter(Book.language_id == Language.id).filter(Language.name == lang)
+        
+
+    try:
+        return [
+            {
+                "name" : a.Book.name,
+                "writedate" : a.Book.writedate,
+                "is_finished" : a.Book.is_finished
+            } for a in q
+        ]
+    except:
+        return {"status": "no data to return"}
+
+@router.post('books/search/author')
+def search_books_by_author(au: str, lang: Optional[str] = Form(None), is_finished: Optional[bool] = Form(None), session: Session = Depends(get_db)):
+    q = session.query(Book, Language, author_book, Author).join(Language).join(author_book).join(Author).filter(Author.name == au)
+    # q = session.query(Book).filter(Book.is_finished == False)
+    if lang is not None:
+        q = q.filter(Book.language_id == Language.id).filter(Language.name == lang)
+    if is_finished is not None:
+        q = q.filter(Book.is_finished == is_finished)
+    try:
+        return [
+            {
+                "name" : a.Book.name,
+                "writedate" : a.Book.writedate,
+                "is_finished" : a.Book.is_finished,
+                "lang" : a.Language.name
+            } for a in q
+        ]
+    except:
+        return {"status": "no data to return"}
