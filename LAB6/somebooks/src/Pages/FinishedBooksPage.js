@@ -3,7 +3,7 @@ import '../App.css';
 import {useForm} from 'react-hook-form';
 import {Link} from "react-router-dom";
 
-function BooksPage() {
+function FinishedBooksPage() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data, e) => console.log(data, e);
   const onError = (errors, e) => console.log(errors, e);
@@ -12,7 +12,8 @@ function BooksPage() {
     <div>
       <div>
               <Link to={'/'}>Авторы</Link>
-              <Link to={'/books'}>Книги</Link>
+              <Link to={'/finishedbooks'}>Прочитанные книги</Link>
+              <Link to={'/planbooks'}>Непрочитанные книги</Link>
       </div>
 
       
@@ -20,11 +21,11 @@ function BooksPage() {
         {/* <input {...register("firstName")} />
         <input {...register("lastName")} /> */}
         <div className='ButtonWrapper'>
-          <button type="submit" class="FormButton">Книги</button>
+          <button type="submit" class="FormButton">Прочитанные Книги</button>
         </div>
       </form>
     </div>
 
   );
 }
-export default BooksPage;
+export default FinishedBooksPage;

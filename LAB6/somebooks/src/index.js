@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AuthorsPage from './Pages/AuthorsPage';
-import BooksPage from './Pages/BooksPage';
+import FinishedBooksPage from './Pages/FinishedBooksPage';
+import PlanBooksPage from './Pages/PlanBooksPage';
+import AuthorEditPage from './Pages/AuthorEditPage';
 import MainPage from './Pages/MainPage'
 import ApiQueries from './Back/Queries';
 
@@ -25,9 +27,17 @@ const router = createBrowserRouter([
     element: <AuthorsPage/>,
   },
   {
-    path: "/books",
-    element: <BooksPage/>,
+    path: "/finishedbooks",
+    element: <FinishedBooksPage/>,
   },
+  {
+    path: "/planbooks",
+    element: <PlanBooksPage/>,
+  },
+  {
+    path: "/authors/:id",
+    element: <AuthorEditPage/>,
+},
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -1,7 +1,7 @@
 
 import '../App.css';
 import {useState, useEffect} from "react";
-import {Link, useLoaderData} from "react-router-dom";
+import {Link, NavLink, useLoaderData} from "react-router-dom";
 import ApiQueries from '../Back/Queries';
 
 
@@ -30,7 +30,8 @@ const AuthorsPage = () => {
     <div>
       <div>
               <Link to={'/'}>Авторы</Link>
-              <Link to={'/books'}>Книги</Link>
+              <Link to={'/finishedbooks'}>Прочитанные книги</Link>
+              <Link to={'/planbooks'}>Непрочитанные книги</Link>
       </div>
 
       
@@ -39,6 +40,7 @@ const AuthorsPage = () => {
         <tr>
           <th>id</th>
           <th>Name</th>
+          <th>Biography</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +48,8 @@ const AuthorsPage = () => {
           <tr>
             <td>{x["id"]}</td>
             <td>{x["name"]}</td>
+            <td>{x["biography"]}</td>
+            <Link to={'/authors/' + x["id"]}>Изменить</Link>
           </tr>
         ))}
 
