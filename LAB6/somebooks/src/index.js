@@ -7,6 +7,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AuthorsPage from './Pages/AuthorsPage';
 import BooksPage from './Pages/BooksPage';
 import MainPage from './Pages/MainPage'
+import ApiQueries from './Back/Queries';
+
+const usersData = [
+  { id: 1, name: 'Tania', username: 'floppydiskette' },
+  { id: 2, name: 'Max', username: 'maxfarseer' },
+]
+
+const resp = ApiQueries.getAllAuthors().data
+console.log(usersData);
 
 // Create router
 // https://reactrouter.com/en/main/routers/create-browser-router

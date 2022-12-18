@@ -1,12 +1,30 @@
 
 import '../App.css';
-import {useForm} from 'react-hook-form';
-import {Link} from "react-router-dom";
+import {useState, useEffect} from "react";
+import {Link, useLoaderData} from "react-router-dom";
+import ApiQueries from '../Back/Queries';
 
-function AuthorsPage() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data, e) => console.log(data, e);
-  const onError = (errors, e) => console.log(errors, e);
+
+
+
+const AuthorsPage = () => {
+  const [authors, setAuthors] = useState([])
+
+  const users = [
+    { id: 1, name: 'Tania', username: 'floppydiskette' },
+    { id: 2, name: 'Max', username: 'maxfarseer' },
+  ]
+
+  // const au = ApiQueries.getAllAuthors().data
+
+  async function loadAuthors() {
+    const response = ApiQueries.getAllAuthors();
+    setAuthors([...authors, ...(await response).data])
+  }
+
+  useEffect(() => {
+    loadAuthors()
+}, [])
 
   return (
     <div>
@@ -16,13 +34,23 @@ function AuthorsPage() {
       </div>
 
       
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        {/* <input {...register("firstName")} />
-        <input {...register("lastName")} /> */}
-        <div className='ButtonWrapper'>
-          <button type="submit" class="FormButton">Авторы</button>
-        </div>
-      </form>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {authors.map(x => (
+          <tr>
+            <td>{x["id"]}</td>
+            <td>{x["name"]}</td>
+          </tr>
+        ))}
+
+      </tbody>
+    </table>
     </div>
 
   );
