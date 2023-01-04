@@ -5,6 +5,10 @@
   height: 40px;
 }
 
+.LinkButton {
+  padding: 5px;
+}
+
 .ButtonWrapper {
   display: flex;
   align-items: center; 

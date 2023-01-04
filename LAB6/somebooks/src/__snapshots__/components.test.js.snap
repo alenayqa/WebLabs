@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inc div render test 1`] = `
+<incDiv
+  a={5}
+/>
+`;
+
+exports[`mult div render test 1`] = `
+<multDiv
+  a={5}
+  b={2}
+/>
+`;
+
+exports[`sum div render test 1`] = `
+<sumDiv
+  a={5}
+  b={2}
+/>
+`;

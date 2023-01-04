@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - pg_project:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=localhost
+      - POSTGRES_DB=dict_db
+    networks:
+      - server-side
+    ports:
+      - 5432:5432
+  back:
+    build: ./backend/
+    ports:
+      - 5000:5000
+    # command: alembic upgrade head
+    networks:
+      - client-side
+      - server-side
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db/dict_db
+    depends_on:
+      - db
+
+  front:
+    build: ./somebooks/
+    ports:
+      - 3000:3000
+
+      
+volumes:
+  pg_project:
+
+networks:
+  client-side: {}
+  server-side: {}

@@ -8,6 +8,9 @@ import AuthorsPage from './Pages/AuthorsPage';
 import FinishedBooksPage from './Pages/FinishedBooksPage';
 import PlanBooksPage from './Pages/PlanBooksPage';
 import AuthorEditPage from './Pages/AuthorEditPage';
+import AuthorCreatePage from './Pages/AuthorCreatePage';
+import BookEditPage from './Pages/BookEditPage';
+import BookCreatePage from './Pages/BookCreatePage';
 import MainPage from './Pages/MainPage'
 import ApiQueries from './Back/Queries';
 
@@ -37,7 +40,19 @@ const router = createBrowserRouter([
   {
     path: "/authors/:id",
     element: <AuthorEditPage/>,
-},
+  },
+  {
+    path: "/authors/new",
+    element: <AuthorCreatePage/>,
+  },
+  {
+    path: "/books/:id",
+    element: <BookEditPage/>,
+  },
+  {
+    path: "/books/new",
+    element: <BookCreatePage/>
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

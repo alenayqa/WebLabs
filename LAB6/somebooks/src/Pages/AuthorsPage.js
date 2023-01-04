@@ -3,6 +3,7 @@ import '../App.css';
 import {useState, useEffect} from "react";
 import {Link, NavLink, useLoaderData} from "react-router-dom";
 import ApiQueries from '../Back/Queries';
+import QRCode from "react-qr-code";
 
 
 
@@ -10,12 +11,6 @@ import ApiQueries from '../Back/Queries';
 const AuthorsPage = () => {
   const [authors, setAuthors] = useState([])
 
-  const users = [
-    { id: 1, name: 'Tania', username: 'floppydiskette' },
-    { id: 2, name: 'Max', username: 'maxfarseer' },
-  ]
-
-  // const au = ApiQueries.getAllAuthors().data
 
   async function loadAuthors() {
     const response = ApiQueries.getAllAuthors();
@@ -26,19 +21,22 @@ const AuthorsPage = () => {
     loadAuthors()
 }, [])
 
+  const regexprstr = /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$/;
+  const regexpr = new RegExp(regexprstr);
+
   return (
     <div>
       <div>
-              <Link to={'/'}>Авторы</Link>
-              <Link to={'/finishedbooks'}>Прочитанные книги</Link>
-              <Link to={'/planbooks'}>Непрочитанные книги</Link>
+              <Link className='LinkButton' to={'/'}>Авторы</Link>
+              <Link className='LinkButton' to={'/finishedbooks'}>Прочитанные книги</Link>
+              <Link className='LinkButton' to={'/planbooks'}>Непрочитанные книги</Link>
+              <Link className='LinkButton' to={'/authors/new'}>Добавить автора</Link>
+              <Link className='LinkButton' to={'/books/new'}>Добавить книгу</Link>
       </div>
-
       
     <table>
       <thead>
         <tr>
-          <th>id</th>
           <th>Name</th>
           <th>Biography</th>
         </tr>
@@ -46,9 +44,8 @@ const AuthorsPage = () => {
       <tbody>
         {authors.map(x => (
           <tr>
-            <td>{x["id"]}</td>
             <td>{x["name"]}</td>
-            <td>{x["biography"]}</td>
+            {x["biography"].match(regexpr) ? <QRCode value={x["biography"]}/> : <td>{x["biography"]}</td>}
             <Link to={'/authors/' + x["id"]}>Изменить</Link>
           </tr>
         ))}
